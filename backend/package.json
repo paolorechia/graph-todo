@@ -1,0 +1,11 @@
+{
+  "name": "graph-todo-backend",
+  "version": "0.0.0",
+  "description": "graph todo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
