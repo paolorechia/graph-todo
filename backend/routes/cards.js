@@ -53,7 +53,7 @@ router.put('/:shid/rename/:new_name', function(req, res, next) {
 
 
 /* PATCH methods */
-// Assign to tag
+// Assign tag to card
 router.patch('/assign/:tag_shid', function(req, res, next) {
   res.send(req.params)
 
