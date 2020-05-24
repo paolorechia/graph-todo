@@ -1,19 +1,19 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+import createError, { HttpError } from 'http-errors';
+import express, { Request, Response, NextFunction } from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
 
-const authRouter = require('./routes/auth');
-const usersRouter = require('./routes/users');
-const cardsRouter = require('./routes/cards');
-const tagsRouter = require('./routes/tags');
+import authRouter from './routes/auth';
+import usersRouter from './routes/users';
+import cardsRouter from './routes/cards';
+import tagsRouter from './routes/tags';
 
 const app = express();
 
 const expressSwagger = require('express-swagger-generator')(app);
 
-let options = {
+const options = {
     swaggerDefinition: {
         info: {
             description: 'This is a sample server',
@@ -35,8 +35,8 @@ let options = {
             }
         }
     },
-    basedir: __dirname, //app absolute path
-    files: ['./routes/**/*.js'] //Path to the API handle folder
+    basedir: __dirname, // app absolute path
+    files: ['./routes/**/*.js'] // Path to the API handle folder
 };
 expressSwagger(options)
 
@@ -63,7 +63,7 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err: HttpError, req: Request, res: Response, next: NextFunction) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -73,4 +73,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+export default app;

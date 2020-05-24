@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+import * as express from 'express';
+const router = express.Router();
 
 /* GET auth resource . */
 router.get('/api', function(req, res, next) {
@@ -10,4 +10,4 @@ router.post('/login', function(req, res, next) {
   res.send('TODO after MVP, login with user/password\n');
 });
 
-module.exports = router;
+export default router;

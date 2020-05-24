@@ -1,5 +1,7 @@
-var express = require('express');
-var router = express.Router();
+import * as express from 'express';
+const router = express.Router();
+
+import cardModel from './models/card';
 
 /* Cards router */
 
@@ -8,7 +10,7 @@ var router = express.Router();
 /**
  * Gets the universe of cards for a user
  * @route GET /cards
- * @group Cards - Operations about cards 
+ * @group Cards - Operations about cards
  * @returns {Array<Card>} 200 - An array of cards
  * @returns {Error}  default - Unexpected error
  */
@@ -19,7 +21,7 @@ router.get('/', function(req, res, next) {
 /**
  * Gets a card by it's SHID
  * @route GET /cards/:shid
- * @group Cards - Operations about cards 
+ * @group Cards - Operations about cards
  * @param {string} shid.query.required - card shid
  * @returns {Card.model} 200 - A card
  * @returns {Error}  default - Unexpected error
@@ -77,4 +79,4 @@ router.delete('/:shid', function(req, res, next) {
   res.send(req.params);
 });
 
-module.exports = router;
+export default router;

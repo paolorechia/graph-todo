@@ -1,5 +1,6 @@
-var express = require('express');
-var router = express.Router();
+import * as express from 'express';
+
+const router = express.Router();
 
 router.get('/', function(req, res, next) {
   res.send('List tags');
@@ -25,4 +26,4 @@ router.delete('/:tag_shid', function(req, res, next) {
   res.send('Delete specific tag');
 });
 
-module.exports = router;
+export default router;

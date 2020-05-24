@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+import * as express from 'express';
+const router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -34,4 +34,4 @@ router.delete('/api_key', function(req, res, next) {
   res.send('delete all api keys for user\n');
 });
 
-module.exports = router;
+export default router;
