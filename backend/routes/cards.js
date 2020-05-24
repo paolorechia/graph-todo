@@ -3,15 +3,27 @@ var router = express.Router();
 
 /* Cards router */
 
-
 /* GET methods */
 
-// Get universe
+/**
+ * Gets the universe of cards for a user
+ * @route GET /cards
+ * @group Cards - Operations about cards 
+ * @returns {Array<Card>} 200 - An array of cards
+ * @returns {Error}  default - Unexpected error
+ */
 router.get('/', function(req, res, next) {
   res.send('respond with card universe');
 });
 
-// Get card by SHID
+/**
+ * Gets a card by it's SHID
+ * @route GET /cards/:shid
+ * @group Cards - Operations about cards 
+ * @param {string} shid.query.required - card shid
+ * @returns {Card.model} 200 - A card
+ * @returns {Error}  default - Unexpected error
+ */
 router.get('/:shid', function(req, res, next) {
   res.send(req.params);
 });
