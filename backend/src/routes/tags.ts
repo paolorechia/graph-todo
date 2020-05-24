@@ -1,29 +1,46 @@
 import * as express from 'express';
 
 const router = express.Router();
+import { Database } from './database/connector';
 
-router.get('/', function(req, res, next) {
-  res.send('List tags');
-});
+class TagRouter {
+  db: Database;
+  router: express.Router
+  constructor(db: Database) {
+    this.db = db; 
+    /* Cards router */
+    this.router = express.Router();
 
-router.get('/:tag_shid', function(req, res, next) {
-  res.send('Get specific tag');
-});
+  }
+  initRouter = (): express.Router => {
+    this.router.get('/', (req, res, next) => {
+      res.send('List tags');
+    });
 
-router.put('/rename/:tag_shid', function(req, res, next) {
-  res.send('Rename tag');
-});
+    this.router.get('/:tag_shid', (req, res, next) => {
+      res.send('Get specific tag');
+    });
 
-router.post('/conflict/:tag1_shid/:tag2:shid', function(req, res, next) {
-  res.send('Creates conflict between two tags');
-});
+    this.router.put('/rename/:tag_shid', (req, res, next) => {
+      res.send('Rename tag');
+    });
 
-router.delete('/conflict/:tag1_shid/:tag2:shid', function(req, res, next) {
-  res.send('Delete conflict between two tags');
-});
+    this.router.post('/conflict/:tag1_shid/:tag2:shid', (req, res, next) => {
+      res.send('Creates conflict between two tags');
+    });
 
-router.delete('/:tag_shid', function(req, res, next) {
-  res.send('Delete specific tag');
-});
+    this.router.delete('/conflict/:tag1_shid/:tag2:shid', (req, res, next) => {
+      res.send('Delete conflict between two tags');
+    });
 
-export default router;
+    this.router.delete('/:tag_shid', (req, res, next) => {
+      res.send('Delete specific tag');
+    });
+    return this.router;
+  }
+}
+
+module.exports = (db: any) => { 
+  const tagRouter = new TagRouter(db);
+  return tagRouter.initRouter();
+}

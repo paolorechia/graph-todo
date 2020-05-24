@@ -1,37 +1,55 @@
 import * as express from 'express';
 const router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('list users\n');
-});
+import { Database } from './database/connector';
 
-router.post('/', function(req, res, next) {
-  res.send('create new user\n');
-});
+class TagRouter {
+  db: Database;
+  router: express.Router
+  constructor(db: Database) {
+    this.db = db; 
+    /* Cards router */
+    this.router = express.Router();
 
-router.put('/', function(req, res, next) {
-  res.send('modify user attributes\n');
-});
+  }
 
-router.patch('/api_key', function(req, res, next) {
-  res.send('generate new api key for user\n');
-});
+  initRouter = (): express.Router => {
+    this.router.get('/', (req, res, next) => {
+      res.send('list users\n');
+    });
 
-router.get('/:id', function(req, res, next) {
-  res.send('respond with specific user\n');
-});
+    this.router.post('/', (req, res, next) => {
+      res.send('create new user\n');
+    });
 
-router.delete('/:id', function(req, res, next) {
-  res.send('delete user\n');
-});
+    this.router.put('/', (req, res, next) => {
+      res.send('modify user attributes\n');
+    });
 
-router.delete('/api_key/<key_end>', function(req, res, next) {
-  res.send('delete api key ending with substring for user\n');
-});
+    this.router.patch('/api_key', (req, res, next) => {
+      res.send('generate new api key for user\n');
+    });
 
-router.delete('/api_key', function(req, res, next) {
-  res.send('delete all api keys for user\n');
-});
+    this.router.get('/:id', (req, res, next) => {
+      res.send('respond with specific user\n');
+    });
 
-export default router;
+    this.router.delete('/:id', (req, res, next) => {
+      res.send('delete user\n');
+    });
+
+    this.router.delete('/api_key/<key_end>', (req, res, next) => {
+      res.send('delete api key ending with substring for user\n');
+    });
+
+    this.router.delete('/api_key', (req, res, next) => {
+      res.send('delete all api keys for user\n');
+    });
+    return this.router;
+  }
+}
+
+module.exports = (db: any) => { 
+  const tagRouter = new TagRouter(db);
+  return tagRouter.initRouter();
+}

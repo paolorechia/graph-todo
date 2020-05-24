@@ -4,13 +4,22 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-import authRouter from './routes/auth';
-import usersRouter from './routes/users';
-import cardsRouter from './routes/cards';
-import tagsRouter from './routes/tags';
+import { db } from './routes/database/connector';
+db.connect();
+
+
+// eslint-disable-next-line
+const cardsRouter = require('./routes/cards')(db);
+// eslint-disable-next-line
+const authRouter  = require('./routes/auth')(db);
+// eslint-disable-next-line
+const usersRouter  = require('./routes/users')(db);
+// eslint-disable-next-line
+const tagsRouter  = require('./routes/tags')(db);
 
 const app = express();
 
+// eslint-disable-next-line
 const expressSwagger = require('express-swagger-generator')(app);
 
 const options = {
@@ -57,7 +66,7 @@ app.use('/cards', cardsRouter);
 app.use('/tags', tagsRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function(req: Request, res: Response, next: NextFunction) {
   res.header('content-type', 'application/json')
   res.status(404).json({"error": "notFound"})
 });

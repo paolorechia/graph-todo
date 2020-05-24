@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "prebuild": "echo 'disabled prebuild: tslint -c tslint.json -p tsconfig.json --fix'",
-    "build": "tsc",
+    "build": "tsc && cp -r src/views dist/views",
     "prestart": "npm run build",
     "start": "node dist/index.js"
   },
@@ -16,6 +16,7 @@
     "express-swagger-generator": "^1.1.17",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "mongodb": "^3.5.7",
     "mongoose": "^5.9.15",
     "morgan": "~1.9.1"
   },
@@ -23,6 +24,7 @@
     "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.6",
     "@types/http-errors": "^1.6.3",
+    "@types/mongodb": "^3.5.18",
     "@types/morgan": "^1.9.0",
     "@types/node": "^14.0.5",
     "@typescript-eslint/eslint-plugin": "^3.0.0",
