@@ -9,8 +9,6 @@ const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
 const tagsRouter = require('./routes/tags');
 
-const models = require('./routes/models');
-
 const app = express();
 
 const expressSwagger = require('express-swagger-generator')(app);
